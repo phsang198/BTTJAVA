@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
@@ -29,19 +27,15 @@ public class loginView {
     @FXML
     private TextField username;
 
-    public void showSimpleAlert(String msg) {
-        new Alert(AlertType.ERROR,msg).showAndWait();
-    }
-
     @FXML
     void login(MouseEvent event) throws IOException {
         if (username.getText().isEmpty() || username.getText().isEmpty())
         {
-            showSimpleAlert("empty input");
+            messagebox.show("empty input");
             return;
         }
         if (!username.getText().equals("admin") || !password.getText().equals("admin")) {
-            showSimpleAlert("Invalid account");
+            messagebox.show("Invalid account");
             return;
         }
         Stage managerStage = new Stage();
