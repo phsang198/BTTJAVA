@@ -18,10 +18,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import task.javafx.model.controller;
 
-public class managerView implements Initializable{
-    private controller _controler = new controller() ; 
+public class managerView  implements Initializable{
+
     @FXML
     private ComboBox<String> currency;
 

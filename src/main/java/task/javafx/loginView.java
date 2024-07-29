@@ -30,7 +30,7 @@ public class loginView {
     private TextField username;
 
     public void showSimpleAlert(String msg) {
-         new Alert(AlertType.ERROR,msg).showAndWait();
+        new Alert(AlertType.ERROR,msg).showAndWait();
     }
 
     @FXML

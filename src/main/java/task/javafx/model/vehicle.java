@@ -1,12 +1,12 @@
 package task.javafx.model;
 
-public abstract class Vehicle {
+public abstract class vehicle {
     protected String id;
     protected String name;
     protected int number;
     protected char filter;
 
-    public Vehicle(String id, String name, int number, char filter) {
+    public vehicle(String id, String name, int number, char filter) {
         this.id = id;
         this.name = name;
         this.number = number;
