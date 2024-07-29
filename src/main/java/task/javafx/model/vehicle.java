@@ -4,14 +4,12 @@ public abstract class vehicle {
     protected String id;
     protected String name;
     protected int number;
-    protected char filter;
 
     public vehicle(){}
-    public vehicle(String id, String name, int number, char filter) {
+    public vehicle(String id, String name, int number) {
         this.id = id;
         this.name = name;
         this.number = number;
-        this.filter = filter;
     }
 
     public String getId() {
@@ -36,14 +34,6 @@ public abstract class vehicle {
 
     public void setNumber(int number) {
         this.number = number;
-    }
-
-    public char getFilter() {
-        return filter;
-    }
-
-    public void setFilter(char filter) {
-        this.filter = filter;
     }
 
     public abstract String toString();

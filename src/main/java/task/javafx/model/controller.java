@@ -14,9 +14,9 @@ public class controller {
     }
 
     public List<car> getWithFilter(char _filter) {
-        return carList.stream()
-                      .filter(car -> car.getFilter() == _filter)
-                      .collect(Collectors.toList());
+        
+        return carList;
+        
     }
 
     public void addCar(car car) {

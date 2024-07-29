@@ -1,9 +1,11 @@
 package task.javafx;
 
 import java.net.URL;
-import java.time.ZoneId;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Currency;
-import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -12,11 +14,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -29,12 +35,13 @@ public class managerView  implements Initializable{
     private controller _controller; 
     @FXML
     private ComboBox<String> currency;
+    private String unit = "USD";
 
     @FXML
     private DatePicker edate;
 
     @FXML
-    private TableView<?> id;
+    private TableView<car> table;
 
     @FXML
     private Pane managepage;
@@ -49,33 +56,57 @@ public class managerView  implements Initializable{
     private TextField price;
 
     @FXML
-    private TableColumn<?, ?> tcurency;
+    private TableColumn<car, String> tcurency;
 
     @FXML
-    private TableColumn<?, ?> tdate;
+    private TableColumn<car, LocalDate> tdate;
 
     @FXML
-    private TableColumn<?, ?> tid;
+    private TableColumn<car, String> tid;
 
     @FXML
-    private TableColumn<?, ?> tname;
+    private TableColumn<car, String> tname;
 
     @FXML
-    private TableColumn<?, ?> tnumber;
+    private TableColumn<car, Integer> tnumber;
 
     @FXML
-    private TableColumn<?, ?> tprice;
+    private TableColumn<car, Double> tprice;
 
     @FXML
-    private TableColumn<?, ?> ttype;
+    private TableColumn<car, Character> ttype;
+
+    @FXML
+    private TextField search;
 
     @FXML
     private ComboBox<String> type;
+
     @FXML
-    void Select(ActionEvent event) {
-        String s = type.getSelectionModel().getSelectedItem().toString();
+    private Button toEpo;
+
+    @FXML
+    private TextField epoch;
+
+    @FXML
+    void toEClick(MouseEvent event) {
+        car _car = new  car();
+        _car.setDateOfEntry(edate.getValue());
+        epoch.setText(String.valueOf(_car.toEpoch()));
+
     }
 
+    @FXML
+    void Select(ActionEvent event) {
+        if ( price.getText().isEmpty()) return ; 
+        String s = currency.getSelectionModel().getSelectedItem().toString();
+        Double tmp = Double.parseDouble(price.getText()) ;
+        car _car = new car();
+        tmp = _car.change(unit, s,tmp);
+        price.setText(tmp.toString());
+    }
+
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<String> list = FXCollections.observableArrayList("S", "C", "E", "M");
@@ -93,6 +124,30 @@ public class managerView  implements Initializable{
         currency.setValue("USD");
 
         _controller = new controller();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        tdate.setCellFactory(column -> {
+            return new TableCell<car, LocalDate>() {
+                
+                @Override
+                protected void updateItem(LocalDate item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(item.toString());
+                    }
+                }
+            };
+        });
+        
+        tid.setCellValueFactory(new PropertyValueFactory<car,String>("id"));
+        tname.setCellValueFactory(new PropertyValueFactory<car,String>("name"));
+        tnumber.setCellValueFactory(new PropertyValueFactory<car,Integer>("number"));
+        tdate.setCellValueFactory(new PropertyValueFactory<car,LocalDate>("dateOfEntry"));
+        tprice.setCellValueFactory(new PropertyValueFactory<car,Double>("price"));
+        ttype.setCellValueFactory(new PropertyValueFactory<car,Character>("type"));
+        tcurency.setCellValueFactory(new PropertyValueFactory<car,String>("unit"));
+        show(_controller.carList); 
     }
 
     @FXML
@@ -107,14 +162,20 @@ public class managerView  implements Initializable{
     }
     @FXML
     void addclick(MouseEvent event) {
+        if (name.getText().isEmpty() || number.getText().isEmpty() || price.getText().isEmpty() ) 
+        {
+            messagebox.show("empty input") ; 
+            return ; 
+        }
         car _car = new car();
         _car.setName(name.getText());
         _car.setNumber(Integer.parseInt(number.getText()));
-        _car.setDateOfEntry(Date.from(edate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        _car.setDateOfEntry(edate.getValue());
         _car.setPrice(Double.parseDouble(price.getText()));
         _car.setType(type.getValue().charAt(0));
         _car.setUnit(currency.getValue());
         _controller.addCar(_car);
+        show(_controller.carList);
     }
     private void closeWindow() {
         // Assuming this controller has access to a Stage object to close.
@@ -122,5 +183,27 @@ public class managerView  implements Initializable{
         Stage stage = (Stage) managepage.getScene().getWindow();
         stage.close();
     }
-
+    public void show(List<car> car)
+    {
+        try {
+        table.getItems().setAll(car) ; 
+            
+        } catch (Exception e) {
+            String tmp = e.getMessage();
+        }
+    }
+    @FXML
+    void searchChanged(KeyEvent  event) {
+        String s = search.getText();
+        if ( s.isEmpty() )
+        {
+            show(_controller.carList) ; 
+            return ; 
+        }
+        List<car> lst = new ArrayList<>(); 
+        for (car car : _controller.carList) {
+            if (car.checkExist(s)) lst.add(car);
+        }
+        show(lst) ; 
+    }
 }

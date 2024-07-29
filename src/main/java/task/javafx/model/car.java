@@ -1,28 +1,40 @@
 package task.javafx.model;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 public class car extends vehicle implements currency {
-    private Date dateOfEntry;
+    private LocalDate dateOfEntry;
     private char type;
     private double price;
     private String unit;
 
     public car() {
     }
-    public car(String id, String name, int number, char filter, Date dateOfEntry, char type, double price,String unit) {
-        super(id, name, number, filter);
+    public car(String id, String name, int number, LocalDate dateOfEntry, char type, double price,String unit) {
+        super(id, name, number);
         this.dateOfEntry = dateOfEntry;
         this.type = type;
         this.price = price;
         this.unit = unit; 
     }
-
-    public Date getDateOfEntry() {
+    @Override
+    public String getId() {
+        return id;
+    }
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+    public LocalDate getDateOfEntry() {
         return dateOfEntry;
     }
 
-    public void setDateOfEntry(Date dateOfEntry) {
+    public void setDateOfEntry(LocalDate dateOfEntry) {
         this.dateOfEntry = dateOfEntry;
     }
 
@@ -54,13 +66,24 @@ public class car extends vehicle implements currency {
         this.unit = unit; 
     }
     @Override
-    public double change(String from, String to) {
-        // Implement currency conversion logic here
+    public double change(String from, String to, Double val)  // 1
+    {
+        if (from.equals("USD") && to.equals("JPY")) {
+            return price * 139.12;
+        }
         return 0.0; // Placeholder
     }
+    public long toEpoch()  // 2
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public boolean checkExist(String name) {
-        return this.name.equalsIgnoreCase(name);
+        Instant instant = dateOfEntry.atStartOfDay(ZoneId.systemDefault()).toInstant();
+
+        return instant.toEpochMilli();
+
+    }
+    public boolean checkExist(String name) {  // 3 function
+        return this.name.contains(name);
     }
 
     @Override
@@ -69,10 +92,10 @@ public class car extends vehicle implements currency {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", number=" + number +
-                ", filter=" + filter +
                 ", dateOfEntry=" + dateOfEntry +
                 ", type=" + type +
                 ", price=" + price +
+                ", unit=" + unit +
                 '}';
     }
 }

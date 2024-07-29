@@ -9,5 +9,5 @@ public interface currency {
     void setUnit(String unit);
     
 
-    double change(String from, String to);
+    double change(String from, String to, Double val);
 }
