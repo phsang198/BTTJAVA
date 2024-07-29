@@ -1,9 +1,9 @@
-package automobile;
+package task.javafx.model;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Controller {
+public class controller {
     private List<Car> carList;
     private Model model;
 

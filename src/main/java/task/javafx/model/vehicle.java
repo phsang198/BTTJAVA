@@ -1,4 +1,4 @@
-package automobile;
+package task.javafx.model;
 
 public abstract class Vehicle {
     protected String id;

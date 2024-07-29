@@ -1,15 +1,13 @@
-package automobile;
+package task.javafx.model;
 
 import java.util.Date;
 
-import automobile.Vehicle;
-
-public class Car extends Vehicle implements Currency {
+public class car extends vehicle implements currency {
     private Date dateOfEntry;
     private char type;
     private double price;
 
-    public Car(String id, String name, int number, char filter, Date dateOfEntry, char type, double price) {
+    public car(String id, String name, int number, char filter, Date dateOfEntry, char type, double price) {
         super(id, name, number, filter);
         this.dateOfEntry = dateOfEntry;
         this.type = type;

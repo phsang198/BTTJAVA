@@ -1,6 +1,6 @@
-package automobile;
+package task.javafx.model;
 
-public interface Currency {
+public interface currency {
     double getPrice();
     void setPrice(double price);
 
