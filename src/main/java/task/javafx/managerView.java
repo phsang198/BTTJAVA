@@ -1,7 +1,9 @@
 package task.javafx;
 
 import java.net.URL;
+import java.time.ZoneId;
 import java.util.Currency;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -16,11 +18,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import task.javafx.model.car;
+import task.javafx.model.controller;
 
 public class managerView  implements Initializable{
 
+    private controller _controller; 
     @FXML
     private ComboBox<String> currency;
 
@@ -85,6 +91,8 @@ public class managerView  implements Initializable{
         }
         currency.setItems(listC);
         currency.setValue("USD");
+
+        _controller = new controller();
     }
 
     @FXML
@@ -97,7 +105,17 @@ public class managerView  implements Initializable{
                 break;
         }
     }
-   
+    @FXML
+    void addclick(MouseEvent event) {
+        car _car = new car();
+        _car.setName(name.getText());
+        _car.setNumber(Integer.parseInt(number.getText()));
+        _car.setDateOfEntry(Date.from(edate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        _car.setPrice(Double.parseDouble(price.getText()));
+        _car.setType(type.getValue().charAt(0));
+        _car.setUnit(currency.getValue());
+        _controller.addCar(_car);
+    }
     private void closeWindow() {
         // Assuming this controller has access to a Stage object to close.
         // If this method should close the primary stage, you need to pass the stage reference

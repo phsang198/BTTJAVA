@@ -1,10 +1,31 @@
 package task.javafx.model;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class controller {
-    private List<car> carList;
-    //private model _model;
+    public List<car> carList;
+    
+    private model _model;
 
-  
+    public controller() {
+        this._model = new model();
+        this.carList = _model.getAllCars();
+    }
+
+    public List<car> getWithFilter(char _filter) {
+        return carList.stream()
+                      .filter(car -> car.getFilter() == _filter)
+                      .collect(Collectors.toList());
+    }
+
+    public void addCar(car car) {
+        _model.addCar(car);
+        carList = _model.getAllCars();
+    }
+
+    public void deleteCar(String carId) {
+        _model.deleteCar(carId);
+        carList = _model.getAllCars();
+    }
 }

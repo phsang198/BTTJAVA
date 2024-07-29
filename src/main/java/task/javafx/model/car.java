@@ -6,12 +6,16 @@ public class car extends vehicle implements currency {
     private Date dateOfEntry;
     private char type;
     private double price;
+    private String unit;
 
-    public car(String id, String name, int number, char filter, Date dateOfEntry, char type, double price) {
+    public car() {
+    }
+    public car(String id, String name, int number, char filter, Date dateOfEntry, char type, double price,String unit) {
         super(id, name, number, filter);
         this.dateOfEntry = dateOfEntry;
         this.type = type;
         this.price = price;
+        this.unit = unit; 
     }
 
     public Date getDateOfEntry() {
@@ -39,7 +43,16 @@ public class car extends vehicle implements currency {
     public void setPrice(double price) {
         this.price = price;
     }
-
+    @Override
+    public String getUnit()
+    {
+        return unit; 
+    }
+    @Override
+    public void setUnit(String unit)
+    {
+        this.unit = unit; 
+    }
     @Override
     public double change(String from, String to) {
         // Implement currency conversion logic here

@@ -6,6 +6,7 @@ public abstract class vehicle {
     protected int number;
     protected char filter;
 
+    public vehicle(){}
     public vehicle(String id, String name, int number, char filter) {
         this.id = id;
         this.name = name;
