@@ -1,5 +1,6 @@
 package task.javafx;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -22,11 +24,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.InputMethodEvent;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import task.javafx.model.car;
 import task.javafx.model.controller;
 
@@ -87,6 +90,12 @@ public class managerView  implements Initializable{
 
     @FXML
     private TextField epoch;
+    
+    @FXML
+    private Button del;
+
+    @FXML
+    private ImageView logout;
 
     @FXML
     void toEClick(MouseEvent event) {
@@ -193,17 +202,33 @@ public class managerView  implements Initializable{
         }
     }
     @FXML
-    void searchChanged(KeyEvent  event) {
+    void searchChanged(KeyEvent event) {
         String s = search.getText();
-        if ( s.isEmpty() )
-        {
-            show(_controller.carList) ; 
-            return ; 
+        if (s.isEmpty()) {
+            show(_controller.carList);
+            return;
         }
-        List<car> lst = new ArrayList<>(); 
+        List<car> lst = new ArrayList<>();
         for (car car : _controller.carList) {
-            if (car.checkExist(s)) lst.add(car);
+            if (car.checkExist(s))
+                lst.add(car);
         }
-        show(lst) ; 
+        show(lst);
+    }
+    @FXML
+    void delclick(MouseEvent event) {
+        car car = table.getSelectionModel().getSelectedItem();
+        _controller.deleteCar(car.getId());
+        show(_controller.carList);
+    }
+    @FXML
+    void logout(MouseEvent event) throws IOException {
+        Stage Stage = new Stage();
+        Stage.initStyle(StageStyle.UNDECORATED);
+        closeWindow(); 
+        App.scene = new Scene(App.loadFXML("login"));
+  
+        Stage.setScene(App.scene);
+        Stage.show();
     }
 }

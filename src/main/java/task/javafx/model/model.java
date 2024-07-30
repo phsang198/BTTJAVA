@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ public class model {
 
     public model() {
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:/D:\\OUTSOURCE\\JAVA\\BTTJAVA\\src\\main\\resources\\task\\javafx\\car.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:/F:\\OutSource\\JAVA\\vehicle\\src\\main\\resources\\task\\javafx\\car.db");
             createTable();
         } catch (SQLException e) {
             e.printStackTrace();

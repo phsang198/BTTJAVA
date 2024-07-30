@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
@@ -22,7 +23,7 @@ public class loginView {
     private ImageView ic;
 
     @FXML
-    private TextField password;
+    private PasswordField password;
 
     @FXML
     private TextField username;

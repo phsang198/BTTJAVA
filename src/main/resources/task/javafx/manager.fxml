@@ -7,10 +7,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="managepage" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#mescpressed" onMouseEntered="#mescpressed" prefHeight="584.0" prefWidth="878.0" scaleShape="false" style="-fx-background-color: #2c344b;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="task.javafx.managerView">
+<Pane fx:id="managepage" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#mescpressed" onMouseEntered="#mescpressed" prefHeight="584.0" prefWidth="878.0" scaleShape="false" style="-fx-background-color: #2c344b;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="task.javafx.managerView">
    <children>
       <TableView fx:id="table" layoutY="259.0" prefHeight="327.0" prefWidth="878.0">
         <columns>
@@ -62,7 +64,7 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Button fx:id="add" layoutX="357.0" layoutY="122.0" mnemonicParsing="false" onMouseClicked="#addclick" prefHeight="12.0" prefWidth="146.0" text="ADD">
+      <Button fx:id="add" layoutX="357.0" layoutY="125.0" mnemonicParsing="false" onMouseClicked="#addclick" prefHeight="12.0" prefWidth="146.0" text="ADD">
          <font>
             <Font size="16.0" />
          </font>
@@ -70,5 +72,11 @@
       <TextField fx:id="search" layoutX="45.0" layoutY="218.0" onKeyReleased="#searchChanged" prefHeight="25.0" prefWidth="129.0" promptText="search key" />
       <TextField fx:id="epoch" layoutX="735.0" layoutY="218.0" onKeyReleased="#searchChanged" prefHeight="25.0" prefWidth="129.0" promptText="epoch" />
       <Button fx:id="toEpo" layoutX="620.0" layoutY="218.0" mnemonicParsing="false" onMouseClicked="#toEClick" prefHeight="25.0" prefWidth="89.0" text="toEpoch" />
+      <Button fx:id="del" layoutX="357.0" layoutY="218.0" mnemonicParsing="false" onMouseClicked="#delclick" prefHeight="12.0" prefWidth="146.0" text="DELETE" />
+      <ImageView fx:id="logout" fitHeight="35.0" fitWidth="47.0" layoutX="7.0" layoutY="125.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logout.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
