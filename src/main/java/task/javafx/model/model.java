@@ -15,7 +15,8 @@ public class model {
 
     public model() {
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:/F:\\OutSource\\JAVA\\vehicle\\src\\main\\resources\\task\\javafx\\car.db");
+            String databasePath = System.getProperty("database.path");
+            connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
             createTable();
         } catch (SQLException e) {
             e.printStackTrace();
